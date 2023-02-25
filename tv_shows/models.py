@@ -23,3 +23,17 @@ class TVShow(models.Model):
     def __str__(self):
         return self.title
 
+
+
+class RatingTv(models.Model):
+    RATING = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    )
+    choise_show = models.ForeignKey(TVShow, on_delete=models.CASCADE,
+                                    related_name='comment_object')
+    rate = models.CharField(max_length=100, null=True, choices=RATING)
+    created_date = models.DateTimeField(auto_now_add=True)
