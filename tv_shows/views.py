@@ -4,9 +4,9 @@ from . import models, forms
 from django.views import generic
 
 
-#вывод не полной информации
+# вывод не полной информации
 class TvShowView(generic.ListView):
-    template_name = 'tvshow.html'
+    template_name = "tvshow.html"
     queryset = models.TVShow.objects.all()
 
     def get_queryset(self):
@@ -19,16 +19,13 @@ class TvShowView(generic.ListView):
 #
 
 
-
-#вывод полной информации по id
+# вывод полной информации по id
 class TvShowDetailView(generic.DetailView):
-    template_name = 'tvshow_detail.html'
+    template_name = "tvshow_detail.html"
 
     def get_object(self, **kwargs):
-        show_id = self.kwargs.get('id')
+        show_id = self.kwargs.get("id")
         return get_object_or_404(models.TVShow, id=show_id)
-
-
 
 
 # def tv_show_detailview(request, id):
@@ -37,17 +34,16 @@ class TvShowDetailView(generic.DetailView):
 #
 
 
-#Добавление фильма через формы
+# Добавление фильма через формы
 class TvShowCreateView(generic.CreateView):
-    template_name = 'add_tvshow.html'
+    template_name = "add_tvshow.html"
     form_class = forms.TvShowForm
     queryset = models.TVShow.objects.all()
-    success_url = '/tvshow/'
+    success_url = "/tvshow/"
 
     def form_valid(self, form):
         print(form.cleaned_data)
         return super(TvShowCreateView, self).form_valid(form=form)
-
 
 
 # def create_tv_show_view(request):
@@ -64,22 +60,18 @@ class TvShowCreateView(generic.CreateView):
 #     return render(request, 'add_tvshow.html', {'form': form})
 
 
-#изменение данных о фильме
+# изменение данных о фильме
 class TvShowUpdateView(generic.UpdateView):
-    template_name = 'update_tv_show.html'
+    template_name = "update_tv_show.html"
     form_class = forms.TvShowForm
-    success_url = '/tvshow/'
+    success_url = "/tvshow/"
 
     def get_object(self, **kwargs):
-        show_id = self.kwargs.get('id')
+        show_id = self.kwargs.get("id")
         return get_object_or_404(models.TVShow, id=show_id)
 
     def form_valid(self, form):
         return super(TvShowUpdateView, self).form_valid(form=form)
-
-
-
-
 
 
 # def update_tv_show_view(request, id):
@@ -98,15 +90,14 @@ class TvShowUpdateView(generic.UpdateView):
 #                                                    })
 
 
-#Удаление из базы
+# Удаление из базы
 class TvShowDeleteView(generic.DeleteView):
-    template_name = 'confirm_delete.html'
-    success_url = '/tvshow/'
+    template_name = "confirm_delete.html"
+    success_url = "/tvshow/"
 
     def get_object(self, **kwargs):
-        show_id = self.kwargs.get('id')
+        show_id = self.kwargs.get("id")
         return get_object_or_404(models.TVShow, id=show_id)
-
 
 
 # def delete_tv_show_view(request, id):
@@ -114,12 +105,12 @@ class TvShowDeleteView(generic.DeleteView):
 #     show_object.delete()
 #     return HttpResponse('<h2>Фильм успешно удален</h2>')
 
+
 class AddRatingView(generic.CreateView):
-    template_name = 'tvshow_detail.html'
+    template_name = "tvshow_detail.html"
     form_class = forms.CommentForm
     queryset = models.RatingTv.objects.all()
-    success_url = '/tvshow/<int:id>/'
+    success_url = "/tvshow/<int:id>/"
 
     def form_valid(self, form):
         return super(AddRatingView, self).form_valid(form=form)
-

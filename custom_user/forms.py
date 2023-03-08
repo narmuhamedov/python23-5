@@ -1,25 +1,23 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    AuthenticationForm,
+    UsernameField,
+)
 from . import models
+
 ADMIN = 1
 VIPClient = 2
 CLIENT = 3
 
-USER_TYPE = (
-    (ADMIN, "ADMIN"),
-    (VIPClient, "VIPClient"),
-    (CLIENT, "CLIENT")
-)
+USER_TYPE = ((ADMIN, "ADMIN"), (VIPClient, "VIPClient"), (CLIENT, "CLIENT"))
 
 MALE = 1
 FEMALE = 2
 OTHER = 3
 
-GENDER_TYPE = (
-    (MALE, "MALE"),
-    (FEMALE, "FEMALE"),
-    (OTHER, "OTHER")
-)
+GENDER_TYPE = ((MALE, "MALE"), (FEMALE, "FEMALE"), (OTHER, "OTHER"))
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -49,24 +47,24 @@ class RegistrationForm(UserCreationForm):
             user.save()
         return user
 
+
 #######################################################################3
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
 
-        username = UsernameField(widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'ваш логин',
-            'id': 'hello'
-        }))
-
-        password = forms.CharField(
-            widget=forms.PasswordInput(
+        username = UsernameField(
+            widget=forms.TextInput(
                 attrs={
-                    'class': "form_control",
-                    'placeholder': 'password',
-                    'id': 'hi'
+                    "class": "form-control",
+                    "placeholder": "ваш логин",
+                    "id": "hello",
                 }
             )
         )
 
+        password = forms.CharField(
+            widget=forms.PasswordInput(
+                attrs={"class": "form_control", "placeholder": "password", "id": "hi"}
+            )
+        )
